@@ -3,6 +3,7 @@ package com.company.service;
 import com.company.model.Book;
 import com.company.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -41,6 +42,10 @@ public class BookService {
             throw new RuntimeException("Book with id: " + book.getId()
                     + "does not exist!");
         }
+    }
+    public List<Book> filterBook(Book book) {
+        Example<Book> bookExample = Example.of(book);
+        return bookRepository.findAll(bookExample);
     }
 
 }

@@ -26,7 +26,6 @@ public class BookController {
     @GetMapping("/books")
     public List<BookDTO> findAllBooks() {
         return bookService.getAllBooks().stream()
-                //.map(t->bookMapper.toDto(t))
                 .map(bookMapper::toDTO)
                 .collect(Collectors.toList());
 
@@ -59,5 +58,13 @@ public class BookController {
     @PutMapping("/Book")
     public void updateBook(@RequestBody BookDTO book) {
         bookService.updateBook(bookMapper.fromDTO(book));
+    }
+
+    @PostMapping("/book/filter")
+    public List<BookDTO> filterBooks(@RequestBody BookDTO bookDTO){
+        return bookService.filterBook(bookMapper.fromDTO(bookDTO))
+                .stream()
+                .map(bookMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

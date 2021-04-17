@@ -17,16 +17,22 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-    public List<User> getAllUsersByPersonalCode(String personalCode) {
+
+    public User getByPersonalCode(String personalCode) {
         return userRepository.findByPersonalCode(personalCode);
     }
 
-    public User saveUser(User user) {
+   public List<User> getByFavouriteBook(String favouriteBook){
+        return userRepository.findByFavouriteBookLike("%" + favouriteBook + "%");
+   }
+
+   public User saveUser(User user){
         return userRepository.save(user);
-    }
+   }
+
     public User updateUser(User user) {
         User userFromDb = userRepository.getOne(user.getId());
         if(userFromDb != null){
@@ -35,6 +41,9 @@ public class UserService {
             throw new RuntimeException("User with id: " + user.getId()
                     + "does not exist!");
         }
+    }
+    public List<User> getUsersByBookName(String bookName){
+        return userRepository.findDistinctByBooksNameLike("%" + bookName + "%");
     }
 
 }
