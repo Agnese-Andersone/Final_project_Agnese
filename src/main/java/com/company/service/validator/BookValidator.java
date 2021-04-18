@@ -22,6 +22,6 @@ public class BookValidator {
         Optional<Book> bookFromDBOpt = bookRepository.findById(bookId);
         return bookFromDBOpt.orElseThrow(() ->
                 new EntityDoesNotExistException("Book: (" + bookId
-                        + ") not exists!"));
+                        + ") not exist!"));
     }
 }

@@ -45,7 +45,7 @@ public class UserValidator {
     public void checkIfUserHasBook(User user, Long bookId) {
         if (!user.getBooks().stream().map(Book::getId)
                 .collect(Collectors.toSet()).contains(bookId)) {
-            throw new UserDoesNotHaveThatBookException("user("
+            throw new UserDoesNotHaveThatBookException("user ("
                     + user.getId() + ") does not have book (" + bookId + ")");
         }
     }

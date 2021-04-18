@@ -8,6 +8,8 @@ import com.company.model.Book;
 import com.company.model.User;
 import com.company.service.UserService;
 import com.company.service.validator.UserValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/rest/User.svc")
 public class UserController {
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
     private final UserMapper userMapper;
@@ -38,6 +43,11 @@ public class UserController {
 
     @PostMapping("/user")
     public UserDTO saveUser(@Valid @RequestBody UserDTO userDTO) {
+        LOGGER.debug("DEBUG");
+        LOGGER.info("INFO");
+        LOGGER.warn("WARN");
+        LOGGER.error("ERROR");
+
         userValidator.checkIfUserEmailDoesNotExist(userDTO.getEmail());
         return userMapper.toDTO(userService
                 .saveUser(userMapper.fromDTO(userDTO)));
