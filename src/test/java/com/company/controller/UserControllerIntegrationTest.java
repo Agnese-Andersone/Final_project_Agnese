@@ -33,8 +33,8 @@ public class UserControllerIntegrationTest {
     public void getUserById(){
         UserDTO userDTO = this.restTemplate.getForObject("http://localhost:"
                         + port + "/api/rest/User.svc/user(2)", UserDTO.class);
-        assertEquals("user1", userDTO.getUsername());
-        assertEquals("user1@user.com", userDTO.getEmail());
+        assertEquals("user2", userDTO.getUsername());
+        assertEquals("user2@user.com", userDTO.getEmail());
     }
 
 
@@ -90,12 +90,14 @@ public class UserControllerIntegrationTest {
     @Test
     void getByFavouriteBook() {
         UserDTO userDTO = this.restTemplate.getForObject("http://localhost:"
-                + port + "/api/rest/User.svc/favourite_book('The Tartar Steppe')", UserDTO.class);
-        assertEquals("user6", userDTO.getUsername());
-        assertEquals("user6@user.com", userDTO.getEmail());
+                + port + "/api/rest/User.svc/user/favourite_book(Poem%20Strip)", UserDTO.class);
+        assertEquals("user3", userDTO.getUsername());
     }
 
     @Test
     void getByBookName() {
+        UserDTO userDTO = this.restTemplate.getForObject("http://localhost:"
+                + port + "api/rest/User.svc/user/book(Poem%20Strip)", UserDTO.class);
+        assertEquals("user3", userDTO.getUsername());
     }
 }
