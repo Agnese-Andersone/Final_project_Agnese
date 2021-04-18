@@ -67,4 +67,15 @@ public class BookController {
                 .map(bookMapper::toDTO)
                 .collect(Collectors.toList());
     }
+    @PutMapping("/user/add")
+    public void addBookToUser(@RequestParam Long userId,
+                              @RequestParam Long bookId){
+    bookService.addBookToUser(userId, bookId);
+    }
+
+    @PutMapping("/user/add")
+    public void removeBookFromUser(@RequestParam Long userId,
+                                   @RequestParam Long bookId){
+        bookService.removeBookFromUser(userId, bookId);
+    }
 }
