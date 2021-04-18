@@ -35,10 +35,15 @@ public class UserController {
                           UserMapper userMapper,
                           BookMapper bookMapper,
                           UserValidator userValidator) {
+
         this.userService = userService;
         this.userMapper = userMapper;
         this.bookMapper = bookMapper;
         this.userValidator = userValidator;
+    }
+    @GetMapping("/user({userId})")
+    public UserDTO getUserById(@PathVariable("userId") Long userId){
+        return userMapper.toDTO(userService.getUserById(userId));
     }
 
     @PostMapping("/user")
@@ -56,11 +61,13 @@ public class UserController {
     @GetMapping("/users")
     public List<UserDTO> getAllUsers() {
         List<User> users = userService.findAllUsers();
-        return users.stream()
+        return users
+                .stream()
                 .map(user-> {
                     Set<Book> userBooks = user.getBooks();
                     UserDTO userDTO = userMapper.toDTO(user);
-                    Set<BookDTO> bookDTOS = userBooks.stream()
+                    Set<BookDTO> bookDTOS = userBooks
+                            .stream()
                             .map(bookMapper::toDTO)
                             .collect(Collectors.toSet());
                     userDTO.setBookDTOSet(bookDTOS);
@@ -69,11 +76,12 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/user/favorite_book({favoriteBook})")
-    public List<UserDTO> getByFavoriteBook(@PathVariable("favoriteBook")
-                                                   String favoriteBook) {
-        List<User> users = userService.getByFavouriteBook(favoriteBook);
-        return users.stream()
+    @GetMapping("/user/favourite_book({favouriteBook})")
+    public List<UserDTO> getByFavouriteBook(@PathVariable("favouriteBook")
+                                                   String favouriteBook) {
+        List<User> users = userService.getByFavouriteBook(favouriteBook);
+        return users
+                .stream()
                 .map(userMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -82,7 +90,8 @@ public class UserController {
     public List<UserDTO> getByBookName(@PathVariable("bookName")
                                                String bookName) {
         List<User> users = userService.getUsersByBookName(bookName);
-        return users.stream()
+        return users
+                .stream()
                 .map(userMapper::toDTO)
                 .collect(Collectors.toList());
     }

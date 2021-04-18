@@ -18,10 +18,9 @@ public class BookValidator {
         this.bookRepository = bookRepository;
     }
 
-    public Book checkBookExists(Long bookId) {
+    public Book checkIfBookExists(Long bookId) {
         Optional<Book> bookFromDBOpt = bookRepository.findById(bookId);
         return bookFromDBOpt.orElseThrow(() ->
-                new EntityDoesNotExistException("Book: (" + bookId
-                        + ") not exist!"));
+                new EntityDoesNotExistException("Book with Id: (" + bookId + ") does not exist!"));
     }
 }

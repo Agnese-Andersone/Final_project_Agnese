@@ -25,7 +25,8 @@ public class BookController {
 
     @GetMapping("/books")
     public List<BookDTO> findAllBooks() {
-        return bookService.getAllBooks().stream()
+        return bookService.getAllBooks()
+                .stream()
                 .map(bookMapper::toDTO)
                 .collect(Collectors.toList());
 

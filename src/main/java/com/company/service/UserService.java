@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.model.User;
 import com.company.repository.UserRepository;
+import com.company.service.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +12,14 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserValidator userValidator;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       UserValidator userValidator) {
+
         this.userRepository = userRepository;
+        this.userValidator = userValidator;
     }
 
     public List<User> findAllUsers() {
@@ -33,14 +38,12 @@ public class UserService {
         return userRepository.save(user);
    }
 
+   public User getUserById(Long id){
+        return userRepository.getOne(id);
+   }
     public User updateUser(User user) {
-        User userFromDb = userRepository.getOne(user.getId());
-        if(userFromDb != null){
-            return userRepository.save(user);
-        }else {
-            throw new RuntimeException("User with id: " + user.getId()
-                    + "does not exist!");
-        }
+        userValidator.checkIfUserExists(user.getId());
+        return userRepository.save(user);
     }
     public List<User> getUsersByBookName(String bookName){
         return userRepository.findDistinctByBooksNameLike("%" + bookName + "%");

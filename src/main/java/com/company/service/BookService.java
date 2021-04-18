@@ -19,7 +19,10 @@ public class BookService {
     private final UserValidator userValidator;
 
     @Autowired
-    public BookService(BookRepository bookRepository, BookValidator bookValidator, UserValidator userValidator) {
+    public BookService(BookRepository bookRepository,
+                       BookValidator bookValidator,
+                       UserValidator userValidator) {
+
         this.bookRepository = bookRepository;
         this.bookValidator = bookValidator;
         this.userValidator = userValidator;
@@ -42,7 +45,7 @@ public class BookService {
     }
 
     public Book updateBook(Book book) {
-        bookValidator.checkBookExists(book.getId());
+        bookValidator.checkIfBookExists(book.getId());
         return bookRepository.save(book);
     }
 
@@ -51,15 +54,15 @@ public class BookService {
         return bookRepository.findAll(bookExample);
     }
     public void addBookToUser(Long userId, Long bookId) {
-        Book book = bookValidator.checkBookExists(bookId);
+        Book book = bookValidator.checkIfBookExists(bookId);
         User user = userValidator.checkIfUserExists(userId);
-        userValidator.checkUserDoesNotHaveMoreThenFiveBook(user);
+        userValidator.checkIfUserDoesNotHaveMoreThenFiveBooks(user);
         book.setUser(user);
         bookRepository.save(book);
     }
 
     public void removeBookFromUser(Long userId, Long bookId){
-        Book book = bookValidator.checkBookExists(bookId);
+        Book book = bookValidator.checkIfBookExists(bookId);
         User user = userValidator.checkIfUserExists(userId);
         userValidator.checkIfUserHasBook(user, bookId);
         book.setUser(null);

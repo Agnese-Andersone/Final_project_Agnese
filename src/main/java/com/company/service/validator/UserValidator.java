@@ -31,29 +31,34 @@ public class UserValidator {
         Example<User> userExample = Example.of(user);
         userRepository.findOne(userExample)
                 .ifPresent(t -> {
-                    throw new EmailAlreadyExistsException(
-                            "Email AlreadyExists!: " + t.getEmail());
+                    throw new EmailAlreadyExistsException
+                    ("Such email already exists!: " + t.getEmail());
                 });
     }
 
     public User checkIfUserExists(Long userId) {
         Optional<User> userFromDBOpt = userRepository.findById(userId);
         return userFromDBOpt.orElseThrow(() ->
-                new EntityDoesNotExistException("User: (" + userId + ") not exists!"));
+                new EntityDoesNotExistException
+                ("User with the following id: (" + userId + ") does not exist!"));
     }
 
     public void checkIfUserHasBook(User user, Long bookId) {
-        if (!user.getBooks().stream().map(Book::getId)
-                .collect(Collectors.toSet()).contains(bookId)) {
-            throw new UserDoesNotHaveThatBookException("user ("
-                    + user.getId() + ") does not have book (" + bookId + ")");
+        if (!user
+                .getBooks()
+                .stream()
+                .map(Book::getId)
+                .collect(Collectors.toSet())
+                .contains(bookId)) {
+            throw new UserDoesNotHaveThatBookException
+            ("User with the following id  (" + user.getId() + ") does not have book with this id (" + bookId + ")");
         }
     }
 
-    public void checkUserDoesNotHaveMoreThenFiveBook(User user) {
+    public void checkIfUserDoesNotHaveMoreThenFiveBooks(User user) {
         if (user.getBooks().size() >= MAX_BOOKS_PER_USER) {
-            throw new UserHasTooManyBooksException("User ("
-                    + user.getId() + ") have to many books!");
+            throw new UserHasTooManyBooksException
+            ("User (" + user.getId() + ") has too many books!");
         }
     }
 
