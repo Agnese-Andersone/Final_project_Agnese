@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/user")
     public UserDTO saveUser(@Valid @RequestBody UserDTO userDTO) {
-        userValidator.checkUserEmailDoesNotExist(userDTO.getEmail());
+        userValidator.checkIfUserEmailDoesNotExist(userDTO.getEmail());
         return userMapper.toDTO(userService
                 .saveUser(userMapper.fromDTO(userDTO)));
     }

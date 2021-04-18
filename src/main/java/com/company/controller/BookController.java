@@ -73,7 +73,7 @@ public class BookController {
     bookService.addBookToUser(userId, bookId);
     }
 
-    @PutMapping("/user/add")
+    @PutMapping("/user/remove")
     public void removeBookFromUser(@RequestParam Long userId,
                                    @RequestParam Long bookId){
         bookService.removeBookFromUser(userId, bookId);
