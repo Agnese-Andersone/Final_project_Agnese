@@ -55,3 +55,6 @@ Gold: 15
 Platinum: 20
 
 Should be methods, to assign loyality card to user, remove loyality card from user, change loyality card type.
+
+java -jar -Dspring.profiles.active=[ PROFILE ] [ JAR NAME ].jar
+java -jar -Dspring.profiles.active=dev final-project-j13-1.0-SNAPSHOT.jar
