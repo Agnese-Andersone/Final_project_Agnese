@@ -22,6 +22,9 @@ public class User {
     private String favouriteBook;
     @OneToMany(mappedBy = "user")
     private Set<Book> books;
+    @OneToOne
+    @JoinColumn(name = "loyalty_card_id")
+    private LoyaltyCard loyaltyCard;
 
     public Long getId() {
         return id;
@@ -77,5 +80,13 @@ public class User {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    public LoyaltyCard getLoyaltyCard() {
+        return loyaltyCard;
+    }
+
+    public void setLoyaltyCard(LoyaltyCard loyaltyCard) {
+        this.loyaltyCard = loyaltyCard;
     }
 }

@@ -7,18 +7,18 @@ import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class UserDTO {
-
     private Long id;
     @Length(min = 4, max = 10)
     private String username;
-    @Email(message = "Email must be valid!")
+    @Email(message = "Email should be valid")
     private String email;
-    @NotBlank(message = "Personal code can't be null!")
+    @NotBlank(message = "personal code can not be null")
     private String personalCode;
-    @NotBlank(message = "Address must not be null!")
+    @NotBlank(message = "address can not be null")
     private String address;
     private String favouriteBook;
     private Set<BookDTO> bookDTOSet;
+    private LoyaltyCardDTO loyaltyCardDTO;
 
     public Long getId() {
         return id;
@@ -74,5 +74,13 @@ public class UserDTO {
 
     public void setBookDTOSet(Set<BookDTO> bookDTOSet) {
         this.bookDTOSet = bookDTOSet;
+    }
+
+    public LoyaltyCardDTO getLoyaltyCardDTO() {
+        return loyaltyCardDTO;
+    }
+
+    public void setLoyaltyCardDTO(LoyaltyCardDTO loyaltyCardDTO) {
+        this.loyaltyCardDTO = loyaltyCardDTO;
     }
 }

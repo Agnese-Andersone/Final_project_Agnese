@@ -3,9 +3,10 @@ package com.company.mapper;
 import com.company.dto.UserDTO;
 import com.company.model.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@ActiveProfiles("test")
 class UserMapperTest {
 
     private UserMapper userMapper = new UserMapper();

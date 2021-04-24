@@ -1,9 +1,6 @@
 package com.company.service.validator;
 
-import com.company.exception.EmailAlreadyExistsException;
-import com.company.exception.EntityDoesNotExistException;
-import com.company.exception.UserDoesNotHaveThatBookException;
-import com.company.exception.UserHasTooManyBooksException;
+import com.company.exception.*;
 import com.company.model.Book;
 import com.company.model.User;
 import com.company.repository.UserRepository;
@@ -59,6 +56,13 @@ public class UserValidator {
         if (user.getBooks().size() >= MAX_BOOKS_PER_USER) {
             throw new UserHasTooManyBooksException
             ("User (" + user.getId() + ") has too many books!");
+        }
+    }
+
+    public void checkIfUserHasLoyaltyCard(User user, Long loyaltyCardId) {
+        if (user.getLoyaltyCard() == null || !user.getLoyaltyCard().getId().equals(loyaltyCardId)) {
+            throw new UserDoesNotHaveThatLoyaltyCardException("user("
+                    + user.getId() + ") does not have loyaltyCardId (" + loyaltyCardId + ")");
         }
     }
 

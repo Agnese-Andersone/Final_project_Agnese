@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
+@ActiveProfiles("test")
 public class UserControllerIntegrationTest {
     @LocalServerPort
     private int port;
