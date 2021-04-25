@@ -22,6 +22,8 @@ public class User {
     private String favouriteBook;
     @OneToMany(mappedBy = "user")
     private Set<Book> books;
+    @Column(name = "status")
+    private String status;
     @OneToOne
     @JoinColumn(name = "loyalty_card_id")
     private LoyaltyCard loyaltyCard;
@@ -88,5 +90,13 @@ public class User {
 
     public void setLoyaltyCard(LoyaltyCard loyaltyCard) {
         this.loyaltyCard = loyaltyCard;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

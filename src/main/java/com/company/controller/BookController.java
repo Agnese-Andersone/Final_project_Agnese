@@ -31,6 +31,10 @@ public class BookController {
                 .collect(Collectors.toList());
 
     }
+    @PutMapping("/books({bookId})")
+    public void deleteBook(@PathVariable("bookId") Long bookId) {
+        bookService.softDeleteBook(bookId);
+    }
 
     @GetMapping("/Book/year/{year}")
     public List<BookDTO> findAllBooks(@PathVariable("year")

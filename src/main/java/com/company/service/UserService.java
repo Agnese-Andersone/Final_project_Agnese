@@ -23,15 +23,15 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findByStatus("ACTIVE");
     }
 
     public User getByPersonalCode(String personalCode) {
-        return userRepository.findByPersonalCode(personalCode);
+        return userRepository.findByPersonalCodeAndStatus("ACTIVE", personalCode);
     }
 
    public List<User> getByFavouriteBook(String favouriteBook){
-        return userRepository.findByFavouriteBookLike("%" + favouriteBook + "%");
+        return userRepository.findByFavouriteBookLikeAndStatus("ACTIVE", "%" + favouriteBook + "%");
    }
 
    public User saveUser(User user){
@@ -46,7 +46,12 @@ public class UserService {
         return userRepository.save(user);
     }
     public List<User> getUsersByBookName(String bookName){
-        return userRepository.findDistinctByBooksNameLike("%" + bookName + "%");
+        return userRepository.findDistinctByBooksNameLikeAndStatus("ACTIVE","%" + bookName + "%");
     }
 
+    public void softDeleteUser(Long userId){
+        User user = userValidator.checkIfUserExists(userId);
+        user.setStatus("DELETED");
+        userRepository.save(user);
+    }
 }

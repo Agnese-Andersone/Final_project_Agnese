@@ -10,10 +10,14 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByPersonalCode(String personalCode);
+    List<User> findByStatus(String status);
 
-    List<User> findByFavouriteBookLike(String favouriteBook);
+    User findByStatusAndId(String status, Long id);
 
-    List<User> findDistinctByBooksNameLike(String bookName);
+    User findByPersonalCodeAndStatus(String personalCode, String status);
+
+    List<User> findByFavouriteBookLikeAndStatus(String favoriteBook, String status);
+
+    List<User> findDistinctByBooksNameLikeAndStatus(String bookName, String status);
 
 }

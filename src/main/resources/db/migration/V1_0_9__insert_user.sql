@@ -1,0 +1,1 @@
+insert into user values(7, 'deleted user', 'user7@user.com', '010107-10011', 'Riga, deleted Street 14', 'The X files', null, 'DELETED');

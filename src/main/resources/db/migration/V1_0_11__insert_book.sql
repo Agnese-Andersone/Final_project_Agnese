@@ -1,0 +1,1 @@
+insert into book values(7, 'Deleted book', 'deleted book book', 'noname', '1909', 'ISDF-20055', null, 'DELETED');

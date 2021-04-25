@@ -38,7 +38,8 @@ public class UserController {
     public UserController(UserService userService,
                           UserMapper userMapper,
                           BookMapper bookMapper,
-                          UserValidator userValidator, LoyaltyCardMapper loyaltyCardMapper) {
+                          UserValidator userValidator,
+                          LoyaltyCardMapper loyaltyCardMapper) {
 
         this.userService = userService;
         this.userMapper = userMapper;
@@ -49,6 +50,10 @@ public class UserController {
     @GetMapping("/user({userId})")
     public UserDTO getUserById(@PathVariable("userId") Long userId){
         return userMapper.toDTO(userService.getUserById(userId));
+    }
+    @PutMapping("/user({userId})")
+    public void deleteUser(@PathVariable("userId") Long userId) {
+        userService.softDeleteUser(userId);
     }
 
     @PostMapping("/user")

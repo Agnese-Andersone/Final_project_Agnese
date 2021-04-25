@@ -19,6 +19,8 @@ public class Book {
     private String year;
     @Column(name = "ISBN")
     private String ISBN;
+    @Column(name = "status")
+    private String status;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
@@ -77,5 +79,13 @@ public class Book {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

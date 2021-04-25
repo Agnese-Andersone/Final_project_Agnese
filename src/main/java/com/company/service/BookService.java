@@ -29,15 +29,15 @@ public class BookService {
     }
 
     public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+        return bookRepository.findByStatus("ACTIVE");
     }
 
     public List<Book> getAllBooksByYear(String year) {
-        return bookRepository.findByYear(year);
+        return bookRepository.findByYearAndStatus("ACTIVE", year);
     }
 
     public List<Book> getAllBooksByInAnnotation(String keyword) {
-        return bookRepository.findByAnnotationLike("%" + keyword + "%");
+        return bookRepository.findByAnnotationLikeAndStatus("ACTIVE","%" + keyword + "%");
     }
 
     public Book saveBook(Book book) {
@@ -66,6 +66,11 @@ public class BookService {
         User user = userValidator.checkIfUserExists(userId);
         userValidator.checkIfUserHasBook(user, bookId);
         book.setUser(null);
+        bookRepository.save(book);
+    }
+    public void softDeleteBook(Long bookId){
+        Book book = bookValidator.checkIfBookExists(bookId);
+        book.setStatus("DELETED");
         bookRepository.save(book);
     }
 }

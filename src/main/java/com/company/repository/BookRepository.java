@@ -9,6 +9,12 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    List<Book> findByYear(String year);
-    List<Book> findByAnnotationLike(String keyword);
+    List<Book> findByYearAndStatus(String status,String year);
+    List<Book> findByAnnotationLikeAndStatus(String status, String keyword);
+
+    List<Book> findByStatus(String status);
+
+    Book findByStatusAndId(String status, Long id);
+
+
 }
