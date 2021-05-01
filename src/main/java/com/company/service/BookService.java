@@ -50,6 +50,7 @@ public class BookService {
     }
 
     public List<Book> filterBook(Book book) {
+        book.setStatus("ACTIVE");
         Example<Book> bookExample = Example.of(book);
         return bookRepository.findAll(bookExample);
     }
